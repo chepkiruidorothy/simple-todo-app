@@ -1,0 +1,33 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+
+{% if todo_list %}
+<h3>Todo lists</h3>
+{% endif %}
+
+<div>
+  {% for todo in todo_list %}
+  <div style="padding:5px; margin-top:15px; border-width:0.5px;border-radius:15px; border-style:solid">
+      <p >{{ todo.id }} . {{ todo.title }}</p>
+      <p> <span style="color:green;">Created:</span> {{todo.created}}</p>
+<a class= "btn btn-secondary" href="/delete/{{ todo.id }}">delete</a>
+  </div>
+  {% empty %}
+  <h4>You have no lists!</h4
+  {% endfor %}
+</div>
+
+<form  action="/add" method="post">{% csrf_token %}
+    <div style="padding:5px; margin-top:15px; " >
+
+        <input type="text" name="title" placeholder="Enter a new task...">
+        <br>
+    </div>
+    <button  type="submit">Add</button>
+</form>
+
+<a href="/update/{{ todo.id }}">Update</a>
+
+{% endblock %}
